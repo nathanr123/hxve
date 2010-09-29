@@ -146,6 +146,6 @@ public class VisualisationPanel extends JPanel{
 	
 	@Override
 	public Dimension getMinimumSize(){
-		return new Dimension(1000,1000);
+		return new Dimension(410,600);
 	}
 }

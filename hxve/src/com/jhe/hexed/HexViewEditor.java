@@ -36,6 +36,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -81,7 +82,7 @@ public class HexViewEditor extends JFrame{
 	final JPanel jpnlDrawingControls;
 	public final VisualisationPanel visualisationPanel;
 	final JScrollPane jscrlVisPanel;
-	final JPanel jpnlDrawing;
+	final JPanel jpnlMain;
 	
 	final JSpinner jspnStart;
 	final SpinnerNumberModel spnmodStart;
@@ -169,11 +170,10 @@ public class HexViewEditor extends JFrame{
 		});
     	mniAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HexViewEditor.this.visualisationPanel.setSelection(100, 500);
-//				JOptionPane.showMessageDialog(null,
-//					    "HxVe\nJava HexViewEditor\n" +
-//					    "by Klaas De Craemer (2010)\n\n" +
-//					    "Based on HEX component code by German Laullon (2003)");
+				JOptionPane.showMessageDialog(null,
+					    "HxVe\nJava HexViewEditor\n" +
+					    "by Klaas De Craemer (2010)\n\n" +
+					    "Based on HEX component code by German Laullon (2003)");
 
 			}
 		});
@@ -181,10 +181,10 @@ public class HexViewEditor extends JFrame{
     	/*
     	 * Drawing panel
     	 */
-    	jpnlDrawingControls = new JPanel(new FlowLayout());
+    	jpnlDrawingControls = new JPanel();
     	visualisationPanel = new VisualisationPanel(hexEdit.buff);//Drawing area for visualisation
     	jscrlVisPanel = new JScrollPane(visualisationPanel);
-    	jpnlDrawing = new JPanel(new GridLayout(2, 1));
+    	jpnlMain = new JPanel(new BorderLayout());
     	
     	jlblStartOffset = new JLabel("Start:");
     	jpnlDrawingControls.add(jlblStartOffset);
@@ -205,9 +205,6 @@ public class HexViewEditor extends JFrame{
     	jlblWidth = new JLabel("Image Width:");
     	jpnlDrawingControls.add(jlblWidth);
     	jpnlDrawingControls.add(jspnCanvasWidth);
-    	
-    	jpnlDrawing.add(jpnlDrawingControls, BorderLayout.NORTH);
-    	jpnlDrawing.add(jscrlVisPanel, BorderLayout.CENTER);
     	
     	/*
     	 * Spinner change handlers
@@ -245,8 +242,6 @@ public class HexViewEditor extends JFrame{
 		});
     	jspnCanvasWidth.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				
-				
 				//"Upload" values to the visualisation component
 				visualisationPanel.setCanvasWidth((Integer) jspnCanvasWidth.getValue());
 				visualisationPanel.repaint();
@@ -267,9 +262,11 @@ public class HexViewEditor extends JFrame{
         /*
          * Add all components to the window
          */
-        JSplitPane jspltMain = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, hexEdit, jpnlDrawing);
+        jpnlMain.add(jpnlDrawingControls, BorderLayout.NORTH);
+        JSplitPane jspltMain = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, hexEdit, jscrlVisPanel);
+        jpnlMain.add(jspltMain, BorderLayout.CENTER);
         jspltMain.setEnabled(false);
-        getContentPane().add(jspltMain);
+        getContentPane().add(jpnlMain);
         
     	JMenuBar menubar = new JMenuBar();
     	setJMenuBar(menubar);

@@ -55,10 +55,10 @@ public class VisualisationPanel extends JPanel{
 					int end = 0;
 					
 					//Limit the endoffset to what can be fitted on the screen
-					if (endOffset < (startOffset + (getSize().width * getSize().height))){
+					if (endOffset < (startOffset + (width * getSize().height))){
 						end = endOffset;
 					} else {
-						end = (startOffset + (getSize().width * getSize().height));
+						end = (startOffset + (width * getSize().height));
 					}
 					
 					byte[] fromFile;
@@ -78,7 +78,6 @@ public class VisualisationPanel extends JPanel{
 			public void colorBytes(Graphics2D g2, int selStart, int selEnd){
 				Color color = new Color(1, 0, 0, 0.3f); //Red
 				g2.setPaint(color);
-				int width = getSize().width;
 				
 				//Selection checks
 				if (selStart < startOffset)

@@ -1,0 +1,7 @@
+# Introduction #
+
+HxVe is a Hex Editor written in Java. It's main feature is being able to show a graphical representation of the binary data. This makes it easier to detect or discover structures in files.
+
+# Details #
+
+wip
